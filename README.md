@@ -8,6 +8,1008 @@ This is the portfolio of Python code that I learned during BISC 450C (PYTHON II)
 ### Part 1-4
 
 
+```python
+from Bio.Seq import Seq
+```
+
+
+```python
+my_seq = Seq("GATCG")
+```
+
+
+```python
+for index, letter in enumerate(my_seq):
+    print("%i %s" % (index, letter))
+```
+
+    0 G
+    1 A
+    2 T
+    3 C
+    4 G
+
+
+
+```python
+# We can also print the length of each sequence
+print(len(my_seq))
+```
+
+    5
+
+
+
+```python
+print(my_seq[0])
+```
+
+    G
+
+
+
+```python
+print(my_seq[4])
+```
+
+    G
+
+
+
+```python
+print(my_seq[2])
+```
+
+    T
+
+
+
+```python
+Seq("AAAA").count("AA")
+```
+
+
+
+
+    2
+
+
+
+
+```python
+my_seq = Seq("GATCGATGGGCCTATATAGGATCGAAAATCGC")
+```
+
+
+```python
+len(my_seq)
+```
+
+
+
+
+    32
+
+
+
+
+```python
+my_seq.count("G")
+```
+
+
+
+
+    9
+
+
+
+
+```python
+100 * (my_seq.count("G") + my_seq.count("C")) / len(my_seq)
+```
+
+
+
+
+    46.875
+
+
+
+
+```python
+from Bio.SeqUtils import gc_fraction
+```
+
+
+```python
+my_seq = Seq("GATCGATGGGCCTATATAGGATCGAAAATCGC")
+```
+
+
+```python
+gc_fraction(my_seq)
+```
+
+
+
+
+    0.46875
+
+
+
+
+```python
+my_seq[4:12]
+```
+
+
+
+
+    Seq('GATGGGCC')
+
+
+
+
+```python
+my_seq[0::3]
+```
+
+
+
+
+    Seq('GCTGTAGTAAG')
+
+
+
+
+```python
+my_seq[1::3]
+```
+
+
+
+
+    Seq('AGGCATGCATC')
+
+
+
+
+```python
+my_seq[2:3]
+```
+
+
+
+
+    Seq('T')
+
+
+
+
+```python
+my_seq[::-1]
+```
+
+
+
+
+    Seq('CGCTAAAAGCTAGGATATATCCGGGTAGCTAG')
+
+
+
+
+```python
+str(my_seq)
+```
+
+
+
+
+    'GATCGATGGGCCTATATAGGATCGAAAATCGC'
+
+
+
+
+```python
+fasta_format_string = ">Name\n%s\n" % my_seq
+```
+
+
+```python
+print(fasta_format_string)
+```
+
+    >Name
+    GATCGATGGGCCTATATAGGATCGAAAATCGC
+    
+
+
+
+```python
+seq1 = Seq("ACGT")
+seq2 = Seq("AACCGG")
+```
+
+
+```python
+seq1 + seq2
+```
+
+
+
+
+    Seq('ACGTAACCGG')
+
+
+
+
+```python
+seq2 + seq1
+```
+
+
+
+
+    Seq('AACCGGACGT')
+
+
+
+
+```python
+contigs = [Seq("ATG"), Seq("ATCCCG"), Seq("TTGCA")]
+```
+
+
+```python
+spacer = Seq("N" * 10)
+```
+
+
+```python
+spacer.join(contigs)
+```
+
+
+
+
+    Seq('ATGNNNNNNNNNNATCCCGNNNNNNNNNNTTGCA')
+
+
+
+
+```python
+dna_seq = Seq("acgtACGT")
+```
+
+
+```python
+dna_seq
+```
+
+
+
+
+    Seq('acgtACGT')
+
+
+
+
+```python
+dna_seq.upper()
+```
+
+
+
+
+    Seq('ACGTACGT')
+
+
+
+
+```python
+dna_seq.lower()
+```
+
+
+
+
+    Seq('acgtacgt')
+
+
+
+
+```python
+dna_seq.upper()
+```
+
+
+
+
+    Seq('ACGTACGT')
+
+
+
+
+```python
+"gtac" in dna_seq
+```
+
+
+
+
+    False
+
+
+
+
+```python
+"GTAC" in dna_seq
+```
+
+
+
+
+    False
+
+
+
+
+```python
+dna_seq
+```
+
+
+
+
+    Seq('acgtACGT')
+
+
+
+
+```python
+dna_seq = dna_seq.upper()
+```
+
+
+```python
+"GTAC" in dna_seq
+```
+
+
+
+
+    True
+
+
+
+
+```python
+my_seq = Seq("GATCGATGGGCCTATATAGGATCGAAAATCGC")
+```
+
+
+```python
+my_seq.complement()
+```
+
+
+
+
+    Seq('CTAGCTACCCGGATATATCCTAGCTTTTAGCG')
+
+
+
+
+```python
+my_seq.reverse_complement()
+```
+
+
+
+
+    Seq('GCGATTTTCGATCCTATATAGGCCCATCGATC')
+
+
+
+
+```python
+protein_seq = Seq("EVRNAK")
+protein_seq.complement()
+```
+
+
+
+
+    Seq('EBYNTM')
+
+
+
+
+```python
+coding_dna = Seq("ATGGCCAATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG")
+```
+
+
+```python
+coding_dna
+```
+
+
+
+
+    Seq('ATGGCCAATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG')
+
+
+
+
+```python
+template_dna = coding_dna.reverse_complement()
+```
+
+
+```python
+template_dna
+```
+
+
+
+
+    Seq('CTATCGGGCACCCTTTCAGCGGCCCATTACAATTGGCCAT')
+
+
+
+
+```python
+coding_dna
+```
+
+
+
+
+    Seq('ATGGCCAATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG')
+
+
+
+
+```python
+messenger_rna = coding_dna.transcribe()
+```
+
+
+```python
+messenger_rna
+```
+
+
+
+
+    Seq('AUGGCCAAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG')
+
+
+
+
+```python
+template_dna.reverse_complement().transcribe()
+```
+
+
+
+
+    Seq('AUGGCCAAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG')
+
+
+
+
+```python
+messenger_rna.back_transcribe()
+```
+
+
+
+
+    Seq('ATGGCCAATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG')
+
+
+
+
+```python
+messenger_rna
+```
+
+
+
+
+    Seq('AUGGCCAAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG')
+
+
+
+
+```python
+messenger_rna.translate()
+```
+
+
+
+
+    Seq('MANCNGPLKGCPI')
+
+
+
+
+```python
+coding_dna.translate(table="Vertebrate Mitochondrial")
+```
+
+
+
+
+    Seq('MANCNGPLKGCPM')
+
+
+
+
+```python
+coding_dna.translate(table = 2)
+```
+
+
+
+
+    Seq('MANCNGPLKGCPM')
+
+
+
+
+```python
+coding_dna.translate(to_stop = True)
+```
+
+
+
+
+    Seq('MANCNGPLKGCPI')
+
+
+
+
+```python
+coding_dna.translate(table =2, to_stop=True)
+```
+
+
+
+
+    Seq('MANCNGPLKGCPM')
+
+
+
+
+```python
+coding_dna.translate(table = 2, stop_symbol = "!")
+```
+
+
+
+
+    Seq('MANCNGPLKGCPM')
+
+
+
+
+```python
+gene = Seq("GTGAAAAAAGATGCAATCTATCGTACTCGCACTTTCCCTGGTTCTGGTTCTGGTCGCTCCCATGGCAGCAGCACCTACACGGACCGCCGCCACCGCCGGCCACCGCCGCGCCACCATAAGAAAGCTCCTCATGATCATCACGGCGGTCATGGTCCAGGCAAACATCACCGCTAA")
+```
+
+
+```python
+gene.translate(table = "Bacterial")
+```
+
+
+
+
+    Seq('VKKDAIYRTRTFPGSGSGRSHGSSTYTDRRHRRPPPRHHKKAPHDHHGGHGPGKHHR*')
+
+
+
+
+```python
+gene.translate(table = "Bacterial", to_stop = True)
+```
+
+
+
+
+    Seq('VKKDAIYRTRTFPGSGSGRSHGSSTYTDRRHRRPPPRHHKKAPHDHHGGHGPGKHHR')
+
+
+
+
+```python
+gene.translate(table = "Bacterial", cds = True)
+```
+
+
+
+
+    Seq('MKKDAIYRTRTFPGSGSGRSHGSSTYTDRRHRRPPPRHHKKAPHDHHGGHGPGKHHR')
+
+
+
+
+```python
+from Bio.Data import CodonTable
+```
+
+
+```python
+standard_table = CodonTable.unambiguous_dna_by_name["Standard"]
+```
+
+
+```python
+mito_table = CodonTable.unambiguous_dna_by_name["Vertebrate Mitochondrial"]
+```
+
+
+```python
+print(standard_table)
+```
+
+    Table 1 Standard, SGC0
+    
+      |  T      |  C      |  A      |  G      |
+    --+---------+---------+---------+---------+--
+    T | TTT F   | TCT S   | TAT Y   | TGT C   | T
+    T | TTC F   | TCC S   | TAC Y   | TGC C   | C
+    T | TTA L   | TCA S   | TAA Stop| TGA Stop| A
+    T | TTG L(s)| TCG S   | TAG Stop| TGG W   | G
+    --+---------+---------+---------+---------+--
+    C | CTT L   | CCT P   | CAT H   | CGT R   | T
+    C | CTC L   | CCC P   | CAC H   | CGC R   | C
+    C | CTA L   | CCA P   | CAA Q   | CGA R   | A
+    C | CTG L(s)| CCG P   | CAG Q   | CGG R   | G
+    --+---------+---------+---------+---------+--
+    A | ATT I   | ACT T   | AAT N   | AGT S   | T
+    A | ATC I   | ACC T   | AAC N   | AGC S   | C
+    A | ATA I   | ACA T   | AAA K   | AGA R   | A
+    A | ATG M(s)| ACG T   | AAG K   | AGG R   | G
+    --+---------+---------+---------+---------+--
+    G | GTT V   | GCT A   | GAT D   | GGT G   | T
+    G | GTC V   | GCC A   | GAC D   | GGC G   | C
+    G | GTA V   | GCA A   | GAA E   | GGA G   | A
+    G | GTG V   | GCG A   | GAG E   | GGG G   | G
+    --+---------+---------+---------+---------+--
+
+
+
+```python
+print(mito_table)
+```
+
+    Table 2 Vertebrate Mitochondrial, SGC1
+    
+      |  T      |  C      |  A      |  G      |
+    --+---------+---------+---------+---------+--
+    T | TTT F   | TCT S   | TAT Y   | TGT C   | T
+    T | TTC F   | TCC S   | TAC Y   | TGC C   | C
+    T | TTA L   | TCA S   | TAA Stop| TGA W   | A
+    T | TTG L   | TCG S   | TAG Stop| TGG W   | G
+    --+---------+---------+---------+---------+--
+    C | CTT L   | CCT P   | CAT H   | CGT R   | T
+    C | CTC L   | CCC P   | CAC H   | CGC R   | C
+    C | CTA L   | CCA P   | CAA Q   | CGA R   | A
+    C | CTG L   | CCG P   | CAG Q   | CGG R   | G
+    --+---------+---------+---------+---------+--
+    A | ATT I(s)| ACT T   | AAT N   | AGT S   | T
+    A | ATC I(s)| ACC T   | AAC N   | AGC S   | C
+    A | ATA M(s)| ACA T   | AAA K   | AGA Stop| A
+    A | ATG M(s)| ACG T   | AAG K   | AGG Stop| G
+    --+---------+---------+---------+---------+--
+    G | GTT V   | GCT A   | GAT D   | GGT G   | T
+    G | GTC V   | GCC A   | GAC D   | GGC G   | C
+    G | GTA V   | GCA A   | GAA E   | GGA G   | A
+    G | GTG V(s)| GCG A   | GAG E   | GGG G   | G
+    --+---------+---------+---------+---------+--
+
+
+
+```python
+mito_table.stop_codons
+```
+
+
+
+
+    ['TAA', 'TAG', 'AGA', 'AGG']
+
+
+
+
+```python
+mito_table.start_codons
+```
+
+
+
+
+    ['ATT', 'ATC', 'ATA', 'ATG', 'GTG']
+
+
+
+
+```python
+seq = Seq("ACGT")
+```
+
+
+```python
+"ACGT" == seq1
+```
+
+
+
+
+    True
+
+
+
+
+```python
+seq1 == "ACGT"
+```
+
+
+
+
+    True
+
+
+
+
+```python
+unknown_seq = Seq(None, 10)
+```
+
+
+```python
+unknown_seq
+```
+
+
+
+
+    Seq(None, length=10)
+
+
+
+
+```python
+len(unknown_seq)
+```
+
+
+
+
+    10
+
+
+
+
+```python
+seq = Seq({117512683: "TTGAAAACCTGAATGTGAGAGTCAGTCAAGGATAGT"}, length = 159345973)
+```
+
+
+```python
+seq[1000:1020]
+```
+
+
+
+
+    Seq(None, length=20)
+
+
+
+
+```python
+seq[117512690:117512700]
+```
+
+
+
+
+    Seq('CCTGAATGTG')
+
+
+
+
+```python
+seq[117512670:]
+```
+
+
+
+
+    Seq({13: 'TTGAAAACCTGAATGTGAGAGTCAGTCAAGGATAGT'}, length=41833303)
+
+
+
+
+```python
+seq = Seq("ACGT")
+```
+
+
+```python
+undefined_seq = Seq(None, length =10)
+```
+
+
+```python
+seq + undefined_seq + seq
+```
+
+
+
+
+    Seq({0: 'ACGT', 14: 'ACGT'}, length=18)
+
+
+
+
+```python
+my_seq = Seq("GCCATTGTAATGGGCCGCTGAAAGGGTGCCCGA")
+```
+
+
+```python
+from Bio.Seq import MutableSeq
+```
+
+
+```python
+mutable_seq = MutableSeq(my_seq)
+```
+
+
+```python
+mutable_seq
+```
+
+
+
+
+    MutableSeq('GCCATTGTAATGGGCCGCTGAAAGGGTGCCCGA')
+
+
+
+
+```python
+mutable_seq[5] = "C"
+```
+
+
+```python
+mutable_seq
+```
+
+
+
+
+    MutableSeq('GCCATCGTAATGGGCCGCTGAAAGGGTGCCCGA')
+
+
+
+
+```python
+mutable_seq.remove("T")
+```
+
+
+```python
+mutable_seq
+```
+
+
+
+
+    MutableSeq('GCCACGTAATGGGCCGCTGAAAGGGTGCCCGA')
+
+
+
+
+```python
+mutable_seq.reverse()
+```
+
+
+```python
+mutable_seq
+```
+
+
+
+
+    MutableSeq('AGCCCGTGGGAAAGTCGCCGGGTAATGCACCG')
+
+
+
+
+```python
+new_seq = Seq(mutable_seq)
+```
+
+
+```python
+new_seq
+```
+
+
+
+
+    Seq('AGCCCGTGGGAAAGTCGCCGGGTAATGCACCG')
+
+
+
+
+```python
+from Bio.Seq import reverse_complement, transcribe, back_transcribe, translate
+```
+
+
+```python
+my_string = "GCTGTTATGGGTCGTTGGAAGGGTGGTCGTGCTGCTGGTTAG"
+```
+
+
+```python
+reverse_complement(my_string)
+```
+
+
+
+
+    'CTAACCAGCAGCACGACCACCCTTCCAACGACCCATAACAGC'
+
+
+
+
+```python
+transcribe(my_string)
+```
+
+
+
+
+    'GCUGUUAUGGGUCGUUGGAAGGGUGGUCGUGCUGCUGGUUAG'
+
+
+
+
+```python
+back_transcribe(my_string)
+```
+
+
+
+
+    'GCTGTTATGGGTCGTTGGAAGGGTGGTCGTGCTGCTGGTTAG'
+
+
+
+
+```python
+translate(my_string)
+```
+
+
+
+
+    'AVMGRWKGGRAAG*'
+
 
 ## Sequence Annotations
 
@@ -3755,6 +4757,447 @@ aligner.score(target, query, strand = "+")
 
 ### BLAST
 
+
+```python
+from Bio.Blast import NCBIWWW
+```
+
+
+```python
+NCBIWWW.email = "dr.josh.vandenbrink@gmail.com"
+```
+
+
+```python
+result_handle = NCBIWWW.qblast("blastn", "nt", "8332116")
+```
+
+
+```python
+#https://github.com/biopython/biopython/blob/master/Doc/examples/m_cold.fasta
+```
+
+
+```python
+from Bio import SeqIO
+```
+
+
+```python
+record = SeqIO.read("m_cold.fasta", format = "fasta")
+```
+
+
+```python
+print(record)
+```
+
+    ID: gi|8332116|gb|BE037100.1|BE037100
+    Name: gi|8332116|gb|BE037100.1|BE037100
+    Description: gi|8332116|gb|BE037100.1|BE037100 MP14H09 MP Mesembryanthemum crystallinum cDNA 5' similar to cold acclimation protein, mRNA sequence
+    Number of features: 0
+    Seq('CACTAGTACTCGAGCGTNCTGCACCAATTCGGCACGAGCAAGTGACTACGTTNT...TTC')
+
+
+
+```python
+result_handle = NCBIWWW.qblast("blastn", "nt", record.seq)
+```
+
+
+```python
+with open("m_cold2.fasta", "w") as out_handle:
+    out_handle.write(result_handle.read())
+result_handle.close()
+```
+
+
+```python
+from Bio.Blast import NCBIXML
+```
+
+
+```python
+result_handle = open("m_cold2.fasta")
+```
+
+
+```python
+blast_record = NCBIXML.read(result_handle)
+```
+
+
+```python
+E_VALUE_THRESH = 0.04
+```
+
+
+```python
+for alignment in blast_record.alignments:
+    for hsp in alignment.hsps:
+        if hsp.expect < E_VALUE_THRESH:
+            print("****ALIGNMENT")
+            print("sequence:", alignment.title)
+            print("length:", alignment.length)
+            print("e value:", hsp.expect)
+            print(hsp.query[0:75] + "...")
+            print(hsp.match[0:75] + "...")
+            print(hsp.sbjct[0:75] + "...")
+```
+
+    ****ALIGNMENT
+    sequence: gi|1219041180|ref|XM_021875076.1| PREDICTED: Chenopodium quinoa cold-regulated 413 plasma membrane protein 2-like (LOC110697660), mRNA
+    length: 1173
+    e value: 5.15591e-117
+    ACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTC...
+    || ||||||||| |||| | |||| ||  |||| |||| | |||| ||| | |||| ||| ||| ||||| | ||...
+    ACCGAAAATGGGCAGAGGAGTGAATTATATGGCAATGACACCTGAGCAACTAGCCGCGGCCAATTTGATCAACTC...
+    ****ALIGNMENT
+    sequence: gi|2514617377|ref|XM_021992092.2| PREDICTED: Spinacia oleracea cold-regulated 413 plasma membrane protein 2-like (LOC110787470), mRNA
+    length: 752
+    e value: 1.38352e-111
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||| |||  |||| | || ||||| |||||||| || ||||| |||| ||| ||| ||||||||||||||...
+    AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAATTAGCCGCGGCCAATTTGATCGATTCCGAT...
+    ****ALIGNMENT
+    sequence: gi|2518612504|ref|XM_010682658.3| PREDICTED: Beta vulgaris subsp. vulgaris cold-regulated 413 plasma membrane protein 2 (LOC104895996), mRNA
+    length: 621
+    e value: 3.71251e-106
+    TTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATATCAATGAGCTTAAAATGGCAACA...
+    ||||||||||||||||| ||| ||||  |||||||| |||| ||||  ||||| ||||| ||||| || ||    ...
+    TTGGCCATGAAAACTGAGCAAATGGCGTTGGCTAATTTGATAGATTATGATATGAATGAACTTAAGATCGCTTTG...
+    ****ALIGNMENT
+    sequence: gi|2031543140|ref|XM_041168865.1| PREDICTED: Juglans microcarpa x Juglans regia cold-regulated 413 plasma membrane protein 2-like (LOC121265293), mRNA
+    length: 1020
+    e value: 1.29579e-105
+    AATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATAT...
+    ||||||||| |||  | |  | |||||||||||||||||||    ||||  |||  || ||||||| || |||| ...
+    AATGGGGAG-GAA--GGATAATTTGGCCATGAAAACTGATCC---GGCCACGGCGGATTTGATCGACTCTGATAA...
+    ****ALIGNMENT
+    sequence: gi|2618480339|ref|XM_048479995.2| PREDICTED: Ziziphus jujuba cold-regulated 413 plasma membrane protein 2 (LOC107424728), mRNA
+    length: 1028
+    e value: 4.52276e-105
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||||||    ||| |||  ||||| |||| |||||||| |   |||  |||| |  ||||  |||| |||...
+    AAAATGGGGAGG---ATGGAGTTTTTGGCTATGAGAACTGATCCA---GCCACGGCTGACTTGATAAATTCTGAT...
+    ****ALIGNMENT
+    sequence: gi|2082357253|ref|XM_043119041.1| PREDICTED: Carya illinoinensis cold-regulated 413 plasma membrane protein 2-like (LOC122306609), transcript variant X1, mRNA
+    length: 1020
+    e value: 5.50985e-104
+    ATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATATC...
+    |||||||| |||  | | || |||||||||||||||||||    ||||  |||  || ||||||| || ||||||...
+    ATGGGGAG-GAA--GGATTATTTGGCCATGAAAACTGATCC---GGCCACGGCGGATTTGATCGACTCTGATATC...
+    ****ALIGNMENT
+    sequence: gi|2082357255|ref|XM_043119049.1| PREDICTED: Carya illinoinensis cold-regulated 413 plasma membrane protein 2-like (LOC122306609), transcript variant X2, mRNA
+    length: 1036
+    e value: 5.50985e-104
+    ATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATATC...
+    |||||||| |||  | | || |||||||||||||||||||    ||||  |||  || ||||||| || ||||||...
+    ATGGGGAG-GAA--GGATTATTTGGCCATGAAAACTGATCC---GGCCACGGCGGATTTGATCGACTCTGATATC...
+    ****ALIGNMENT
+    sequence: gi|1882610309|ref|XM_018970776.2| PREDICTED: Juglans regia cold-regulated 413 plasma membrane protein 2 (LOC108995251), transcript variant X1, mRNA
+    length: 1025
+    e value: 6.71237e-103
+    AATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATT---------GGCCGTGGCTAATATGATCGA...
+    ||||||||| |||  | | || |||||||||||||||||||             ||||  |||  || |||||||...
+    AATGGGGAG-GAA--GGATTATTTGGCCATGAAAACTGATCCGGCCACGGCCACGGCCACGGCGGATTTGATCGA...
+    ****ALIGNMENT
+    sequence: gi|1882610310|ref|XM_035691634.1| PREDICTED: Juglans regia cold-regulated 413 plasma membrane protein 2 (LOC108995251), transcript variant X2, mRNA
+    length: 909
+    e value: 6.71237e-103
+    AATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATT---------GGCCGTGGCTAATATGATCGA...
+    ||||||||| |||  | | || |||||||||||||||||||             ||||  |||  || |||||||...
+    AATGGGGAG-GAA--GGATTATTTGGCCATGAAAACTGATCCGGCCACGGCCACGGCCACGGCGGATTTGATCGA...
+    ****ALIGNMENT
+    sequence: gi|1350315641|ref|XM_024180293.1| PREDICTED: Citrus clementina cold-regulated 413 plasma membrane protein 2 (LOC18037141), transcript variant X4, mRNA
+    length: 868
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|2395983796|ref|XM_025094967.2| PREDICTED: Citrus sinensis cold-regulated 413 plasma membrane protein 2 (LOC102620025), transcript variant X1, mRNA
+    length: 980
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|2395983800|ref|XM_006466626.4| PREDICTED: Citrus sinensis cold-regulated 413 plasma membrane protein 2 (LOC102620025), transcript variant X5, mRNA
+    length: 913
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|2395983799|ref|XM_006466625.3| PREDICTED: Citrus sinensis cold-regulated 413 plasma membrane protein 2 (LOC102620025), transcript variant X4, mRNA
+    length: 978
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|1350315636|ref|XM_006425716.2| PREDICTED: Citrus clementina cold-regulated 413 plasma membrane protein 2 (LOC18037141), transcript variant X2, mRNA
+    length: 881
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|1350315638|ref|XM_006425719.2| PREDICTED: Citrus clementina cold-regulated 413 plasma membrane protein 2 (LOC18037141), transcript variant X3, mRNA
+    length: 893
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|1204884098|ref|XM_021445554.1| PREDICTED: Herrania umbratica cold-regulated 413 plasma membrane protein 2-like (LOC110429488), mRNA
+    length: 905
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||   ||| | || ||||| |||||||| ||||   | || |  |   || |||||  ||| ||||...
+    AAATGGGGAGA---ATGGACTATTTGGCTATGAAAACAGATCCTGTAGCAGAAG---ATTTGATCAGTTCTGATA...
+    ****ALIGNMENT
+    sequence: gi|1350315634|ref|XM_006425717.2| PREDICTED: Citrus clementina cold-regulated 413 plasma membrane protein 2 (LOC18037141), transcript variant X1, mRNA
+    length: 952
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|2395983798|ref|XM_006466623.4| PREDICTED: Citrus sinensis cold-regulated 413 plasma membrane protein 2 (LOC102620025), transcript variant X3, mRNA
+    length: 1052
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|2395983797|ref|XM_006466624.4| PREDICTED: Citrus sinensis cold-regulated 413 plasma membrane protein 2 (LOC102620025), transcript variant X2, mRNA
+    length: 968
+    e value: 5.16047e-98
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||    |||| || ||||| |||||||||||| |   ||  |  ||  |  |||||   || ||| ...
+    AAATGGGGAGAT---TGAATTATTTGGCTATGAAAACTGATGATCAGGTTGCAGCAGAGTTGATCAGCTCTGATT...
+    ****ALIGNMENT
+    sequence: gi|1227938481|ref|XM_022049453.1| PREDICTED: Carica papaya cold-regulated 413 plasma membrane protein 2-like (LOC110820077), mRNA
+    length: 1009
+    e value: 2.19429e-96
+    AGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCG...
+    |||||||||||||    ||| | || ||||| ||||| ||||||||   ||||   ||| || | |||  ||| |...
+    AGAAAATGGGGAGG---ATGGAATATTTGGCTATGAAGACTGATCA---GGCCACTGCTGATCTCATCACTTCTG...
+    ****ALIGNMENT
+    sequence: gi|1063463253|ref|XM_007047033.2| PREDICTED: Theobroma cacao cold-regulated 413 plasma membrane protein 2 (LOC18611025), transcript variant X2, mRNA
+    length: 1071
+    e value: 9.33035e-95
+    TGTGAACAGA-AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGAT...
+    || |||| || |||||||||||   ||| | || ||||| |||||||| ||||   | || |  |   || ||||...
+    TGAGAACTGAGAAATGGGGAGA---ATGGACTATTTGGCTATGAAAACAGATCCTGTAGCAGAAG---ATTTGAT...
+    ****ALIGNMENT
+    sequence: gi|1063463252|ref|XM_007047032.2| PREDICTED: Theobroma cacao cold-regulated 413 plasma membrane protein 2 (LOC18611025), transcript variant X1, mRNA
+    length: 1065
+    e value: 9.33035e-95
+    TGTGAACAGA-AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGAT...
+    || |||| || |||||||||||   ||| | || ||||| |||||||| ||||   | || |  |   || ||||...
+    TGAGAACTGAGAAATGGGGAGA---ATGGACTATTTGGCTATGAAAACAGATCCTGTAGCAGAAG---ATTTGAT...
+    ****ALIGNMENT
+    sequence: gi|1269881403|ref|XM_022895603.1| PREDICTED: Durio zibethinus cold-regulated 413 plasma membrane protein 2 (LOC111300020), transcript variant X1, mRNA
+    length: 1072
+    e value: 3.25661e-94
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||   ||| |||| ||||| |||||||||||||   | || |  |  ||| |||||  ||| ||||...
+    AAATGGGGAGA---ATGGAGTATTTGGCTATGAAAACTGATCCTGTAGCTGAAG--AAT-TGATCAGTTCTGATA...
+    ****ALIGNMENT
+    sequence: gi|1269881407|ref|XM_022895605.1| PREDICTED: Durio zibethinus cold-regulated 413 plasma membrane protein 2 (LOC111300020), transcript variant X3, mRNA
+    length: 1069
+    e value: 3.25661e-94
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||   ||| |||| ||||| |||||||||||||   | || |  |  ||| |||||  ||| ||||...
+    AAATGGGGAGA---ATGGAGTATTTGGCTATGAAAACTGATCCTGTAGCTGAAG--AAT-TGATCAGTTCTGATA...
+    ****ALIGNMENT
+    sequence: gi|1269881405|ref|XM_022895604.1| PREDICTED: Durio zibethinus cold-regulated 413 plasma membrane protein 2 (LOC111300020), transcript variant X2, mRNA
+    length: 1091
+    e value: 3.25661e-94
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||||   ||| |||| ||||| |||||||||||||   | || |  |  ||| |||||  ||| ||||...
+    AAATGGGGAGA---ATGGAGTATTTGGCTATGAAAACTGATCCTGTAGCTGAAG--AAT-TGATCAGTTCTGATA...
+    ****ALIGNMENT
+    sequence: gi|2082386143|ref|XM_043113301.1| PREDICTED: Carya illinoinensis cold-regulated 413 plasma membrane protein 2-like (LOC122301958), transcript variant X1, mRNA
+    length: 844
+    e value: 1.13667e-93
+    ATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATATCAATGAGCTTAAA...
+    ||||| |||||||| |||||||||||||    |||  |||   || ||||||  || ||||||||||| || || ...
+    ATGAATTACTTGGCTATGAAAACTGATCC---GGCAATGGAGGATTTGATCGGCTCTGATATCAATGACCTCAAG...
+    ****ALIGNMENT
+    sequence: gi|2082386146|ref|XM_043113302.1| PREDICTED: Carya illinoinensis cold-regulated 413 plasma membrane protein 2-like (LOC122301958), transcript variant X2, mRNA
+    length: 824
+    e value: 1.13667e-93
+    ATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATATCAATGAGCTTAAA...
+    ||||| |||||||| |||||||||||||    |||  |||   || ||||||  || ||||||||||| || || ...
+    ATGAATTACTTGGCTATGAAAACTGATCC---GGCAATGGAGGATTTGATCGGCTCTGATATCAATGACCTCAAG...
+    ****ALIGNMENT
+    sequence: gi|1954740698|ref|XM_038867092.1| PREDICTED: Tripterygium wilfordii cold-regulated 413 plasma membrane protein 2 (LOC120014952), mRNA
+    length: 999
+    e value: 3.96736e-93
+    GAACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGAT...
+    ||| ||||||||||||||   | | | || ||||| ||||| |||||||    ||  ||||   || |||||   ...
+    GAAAAGAAAATGGGGAGA---ACGGATTATTTGGCGATGAAGACTGATCC---GGTTGTGGACGATTTGATCAGC...
+    ****ALIGNMENT
+    sequence: gi|1882636119|ref|XM_018974650.2| PREDICTED: Juglans regia cold-regulated 413 plasma membrane protein 2-like (LOC108998174), mRNA
+    length: 1015
+    e value: 4.83324e-92
+    AATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATAT...
+    |||||||||    ||||| || ||||| |||||||||||||    |||  ||| | || ||||||  || |||||...
+    AATGGGGAGG---ATGAATTATTTGGCTATGAAAACTGATCC---GGCAATGGATGATTTGATCGGCTCTGATAT...
+    ****ALIGNMENT
+    sequence: gi|2526866810|ref|XM_057645500.1| PREDICTED: Actinidia eriantha cold-regulated 413 plasma membrane protein 2-like (LOC130785340), mRNA
+    length: 1152
+    e value: 4.83324e-92
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    ||||||||||||   ||| | || ||||| ||||| || |||| |  |||  || | ||| ||||| |||| || ...
+    AAAATGGGGAGA---ATGGATTATTTGGCGATGAAGACCGATCCAGCGGC--TGCCGAAT-TGATCAATTCGGAC...
+    ****ALIGNMENT
+    sequence: gi|1187397285|gb|KX009413.1| Santalum album COR413-PM2 mRNA, complete cds
+    length: 837
+    e value: 1.68697e-91
+    AATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATAT...
+    |||||||||    ||| | | ||||||||||||||| ||||    |||||  |   || ||||| ||||||| ||...
+    AATGGGGAGG---ATGGATTTCTTGGCCATGAAAACAGATCCCGCGGCCGCCG---ATTTGATCAATTCCGACAT...
+    ****ALIGNMENT
+    sequence: gi|2550782781|ref|XM_058372567.1| PREDICTED: Rhododendron vialii cold-regulated 413 plasma membrane protein 2 (LOC131336659), mRNA
+    length: 1110
+    e value: 2.05515e-90
+    GCCGTGGCTAATATGATCGATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGT...
+    ||||  ||| | |||||||| || |||||||| ||||| || || ||  | | | | || || |   | || |  ...
+    GCCGATGCTGAAATGATCGACTCGGATATCAACGAGCTGAAGATCGCGGCCAAGCGACTGATTAGCCACGCCACC...
+    ****ALIGNMENT
+    sequence: gi|2806124758|ref|XM_068481225.1| PREDICTED: Pyrus communis cold-regulated 413 plasma membrane protein 2-like (LOC137741519), mRNA
+    length: 850
+    e value: 7.17316e-90
+    TGATCGATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGTATGCTCGGTCATT...
+    |||| ||||| |||||||| ||||| || || ||| | | ||| ||||||| |||||| |  | ||| |||  ||...
+    TGATAGATTCAGATATCAAAGAGCTCAAGATTGCAGCCAAGAGACTCATCAGTGATGCCACCAAGCTTGGTGGTT...
+    ****ALIGNMENT
+    sequence: gi|2532162279|ref|XM_058104265.1| PREDICTED: Malania oleifera cold-regulated 413 plasma membrane protein 2-like (LOC131152402), mRNA
+    length: 2364
+    e value: 8.7387e-89
+    GAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGA...
+    ||||||||||||      | |||||||||||||||||||||||| |  ||| |  |   || |||||  ||| ||...
+    GAAAATGGGGAGGTC---GGAGTACTTGGCCATGAAAACTGATCCAGCGGCTGCCG---ATTTGATCAGTTCGGA...
+    ****ALIGNMENT
+    sequence: gi|2250518185|ref|XM_009343631.3| PREDICTED: Pyrus x bretschneideri cold-regulated 413 plasma membrane protein 2 (LOC103933927), mRNA
+    length: 787
+    e value: 8.7387e-89
+    TGATCGATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGTATGCTCGGTCATT...
+    |||| ||||| |||||||| ||||| || || ||| | | ||| ||||||| |||||| |  | ||| |||  ||...
+    TGATAGATTCAGATATCAAAGAGCTCAAGATTGCAGCCAAGAGACTCATCAGTGATGCCACCAAGCTTGGTGGTT...
+    ****ALIGNMENT
+    sequence: gi|1350280614|ref|XM_024170292.1| PREDICTED: Morus notabilis cold-regulated 413 plasma membrane protein 2 (LOC21394987), mRNA
+    length: 1020
+    e value: 3.05011e-88
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    |||||||||| ||       || |||||||||||||| || | |   |||  |||| || ||||  |||| ||||...
+    AAATGGGGAGGGAT------TATTTGGCCATGAAAACGGACCCA---GCCACGGCTGATTTGATAAATTCTGATA...
+    ****ALIGNMENT
+    sequence: gi|743838293|ref|XM_011027372.1| PREDICTED: Populus euphratica cold-regulated 413 plasma membrane protein 2 (LOC105126500), transcript variant X1, mRNA
+    length: 980
+    e value: 3.05011e-88
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||||||    ||| |||  |||   ||||| |||||| |    | |   |||||| | || |||||||||...
+    AAAATGGGGAGG---ATGGAGTTTTTGAAGATGAAGACTGATGATGAAGTCAGCGCTAATTTAATTGATTCCGAT...
+    ****ALIGNMENT
+    sequence: gi|743838297|ref|XM_011027373.1| PREDICTED: Populus euphratica cold-regulated 413 plasma membrane protein 2 (LOC105126500), transcript variant X2, mRNA
+    length: 1132
+    e value: 3.05011e-88
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||||||    ||| |||  |||   ||||| |||||| |    | |   |||||| | || |||||||||...
+    AAAATGGGGAGG---ATGGAGTTTTTGAAGATGAAGACTGATGATGAAGTCAGCGCTAATTTAATTGATTCCGAT...
+    ****ALIGNMENT
+    sequence: gi|1768569081|ref|XM_031406607.1| PREDICTED: Pistacia vera cold-regulated 413 plasma membrane protein 2-like (LOC116120644), mRNA
+    length: 982
+    e value: 3.71579e-87
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATT-GGCCGTGGCTAATATGATCGATTCCGA...
+    |||||||||||    ||| | ||  |||  ||||||||||| ||||  ||     ||| |  ||||  | || ||...
+    AAAATGGGGAGG---ATGGATTATCTGGGAATGAAAACTGA-CAATCAGGTTACTGCTGAGGTGATTAACTCTGA...
+    ****ALIGNMENT
+    sequence: gi|2396494064|ref|XM_024605027.2| PREDICTED: Populus trichocarpa cold-regulated 413 plasma membrane protein 2 (LOC18101203), transcript variant X2, mRNA
+    length: 1178
+    e value: 1.29694e-86
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||||||    ||| |||  |||   ||||| |||||| |    | |   |||||| | || || ||||||...
+    AAAATGGGGAGG---ATGGAGTTTTTGAAGATGAAGACTGATGATGAAGTCAGCGCTAATTTAATTGAGTCCGAT...
+    ****ALIGNMENT
+    sequence: gi|2396494060|ref|XM_052454347.1| PREDICTED: Populus trichocarpa cold-regulated 413 plasma membrane protein 2 (LOC18101203), transcript variant X1, mRNA
+    length: 1018
+    e value: 1.29694e-86
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||||||    ||| |||  |||   ||||| |||||| |    | |   |||||| | || || ||||||...
+    AAAATGGGGAGG---ATGGAGTTTTTGAAGATGAAGACTGATGATGAAGTCAGCGCTAATTTAATTGAGTCCGAT...
+    ****ALIGNMENT
+    sequence: gi|1585724761|ref|XM_028202722.1| PREDICTED: Camellia sinensis cold-regulated 413 plasma membrane protein 2-like (LOC114262355), mRNA
+    length: 910
+    e value: 4.52676e-86
+    AGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCG...
+    |||||||||||||  ||||| |||| ||||| ||||| || |||||    |||    |  |   |||  ||||||...
+    AGAAAATGGGGAGGAAAATGGAGTATTTGGCAATGAAGACCGATCATCCAGCCCCAACCCAATCGATGAATTCCG...
+    ****ALIGNMENT
+    sequence: gi|2537663858|ref|XM_021815584.2| PREDICTED: Hevea brasiliensis cold-regulated 413 plasma membrane protein 2 (LOC110658100), mRNA
+    length: 945
+    e value: 1.57999e-85
+    AAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATA...
+    ||||||||||    ||| ||||||||   ||||  ||||||||| |  |   |||  || ||||| | || ||| ...
+    AAATGGGGAGG---ATGGAGTACTTGAAAATGAGTACTGATCAAGTACC---GGCCGATTTGATCAAGTCTGATC...
+    ****ALIGNMENT
+    sequence: gi|1860377401|ref|XM_035077206.1| PREDICTED: Populus alba cold-regulated 413 plasma membrane protein 2-like (LOC118063227), transcript variant X2, mRNA
+    length: 916
+    e value: 1.57999e-85
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||||||    ||| |||  |||   ||||| |||||| |    | |   | |||| | || || ||||||...
+    AAAATGGGGAGG---ATGGAGTTTTTGAAGATGAAGACTGATGATGAAGTCAGCGGTAATTTAATTGAGTCCGAT...
+    ****ALIGNMENT
+    sequence: gi|2645357626|ref|XM_062094449.1| PREDICTED: Populus nigra cold-regulated 413 plasma membrane protein 2-like (LOC133673573), mRNA
+    length: 1175
+    e value: 1.57999e-85
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||||||    ||| |||  |||   ||||| |||||| |    | |   |||||| | || || ||||||...
+    AAAATGGGGAGG---ATGGAGTTTTTGAAGATGAAGACTGATGATGAAGTCAGCGCTAATTTAATTGAGTCCGAT...
+    ****ALIGNMENT
+    sequence: gi|1860377399|ref|XM_035077205.1| PREDICTED: Populus alba cold-regulated 413 plasma membrane protein 2-like (LOC118063227), transcript variant X1, mRNA
+    length: 1109
+    e value: 1.57999e-85
+    AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGAT...
+    |||||||||||    ||| |||  |||   ||||| |||||| |    | |   | |||| | || || ||||||...
+    AAAATGGGGAGG---ATGGAGTTTTTGAAGATGAAGACTGATGATGAAGTCAGCGGTAATTTAATTGAGTCCGAT...
+    ****ALIGNMENT
+    sequence: gi|1162571919|ref|XM_020568695.1| PREDICTED: Prunus persica cold-regulated 413 plasma membrane protein 2 (LOC18770198), transcript variant X2, mRNA
+    length: 929
+    e value: 1.92483e-84
+    TGATCGATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGTATGCTCGGTCATT...
+    ||||  |||| || |||||||| || || || ||| | | ||  |||||||||||||| | || ||| |||   |...
+    TGATAAATTCAGACATCAATGATCTCAAGATTGCAGCCAAGAAACTCATCAATGATGCCACTAAGCTTGGTGGGT...
+    ****ALIGNMENT
+    sequence: gi|1162571918|ref|XM_007202530.2| PREDICTED: Prunus persica cold-regulated 413 plasma membrane protein 2 (LOC18770198), transcript variant X1, mRNA
+    length: 811
+    e value: 1.92483e-84
+    TGATCGATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGTATGCTCGGTCATT...
+    ||||  |||| || |||||||| || || || ||| | | ||  |||||||||||||| | || ||| |||   |...
+    TGATAAATTCAGACATCAATGATCTCAAGATTGCAGCCAAGAAACTCATCAATGATGCCACTAAGCTTGGTGGGT...
+    ****ALIGNMENT
+    sequence: gi|2583747300|ref|XM_059787294.1| PREDICTED: Cornus florida cold-regulated 413 plasma membrane protein 2-like (LOC132285128), mRNA
+    length: 1126
+    e value: 1.92483e-84
+    AGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCG...
+    |||||||||||||| |   | |||| ||||| |||||||||||||    ||||   ||  |  ||||| ||||||...
+    AGAAAATGGGGAGAAA---GGAGTATTTGGCTATGAAAACTGATCC---GGCCACAGCCGAATTGATCAATTCCG...
+    ****ALIGNMENT
+    sequence: gi|1229761331|ref|XM_022277554.1| PREDICTED: Momordica charantia cold-regulated 413 plasma membrane protein 2-like (LOC111005887), mRNA
+    length: 850
+    e value: 6.71831e-84
+    ATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGTATGCTCGGTCATTACGGGT...
+    |||| |||||||| ||||||||||| ||| | | ||||||  |  |  |||| |  | |||||||    | ||  ...
+    ATTCTGATATCAACGAGCTTAAAATTGCAGCCACGAGGCTTCTTGAACATGCCACCAAGCTCGGTGGAAAGGGCC...
+
+
+
 ### Challenge
 
 
@@ -4487,6 +5930,811 @@ show_pic(blended)
 ### Corner Detection
 
 
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+flat_chess = cv2.imread('Chessboard_green.png')
+flat_chess = cv2.cvtColor(flat_chess, cv2.COLOR_BGR2RGB)
+plt.imshow(flat_chess)
+```
 
 
 
+
+    <matplotlib.image.AxesImage at 0x7f6ab5b69dd0>
+
+
+
+
+![png](output_1_1.png)
+
+
+
+```python
+gray_flat_chess = cv2.cvtColor(flat_chess, cv2.COLOR_BGR2GRAY)
+plt.imshow(gray_flat_chess, cmap = "gray")
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f6ab5b49e90>
+
+
+
+
+![png](output_2_1.png)
+
+
+
+```python
+real_chess = cv2.imread("Chessboard.jpg")
+real_chess = cv2.cvtColor(real_chess, cv2.COLOR_BGR2RGB)
+```
+
+
+```python
+plt.imshow(real_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f6ab427ecd0>
+
+
+
+
+![png](output_4_1.png)
+
+
+
+```python
+gray_real_chess = cv2.cvtColor(real_chess, cv2.COLOR_RGB2GRAY)
+plt.imshow(gray_real_chess, cmap = 'gray')
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f6ab41fa350>
+
+
+
+
+![png](output_5_1.png)
+
+
+
+```python
+gray = np.float32(gray_flat_chess)
+dst = cv2.cornerHarris(src = gray, blockSize = 2, ksize = 3, k = 0.04)
+
+dst = cv2.dilate(dst, None)
+```
+
+
+```python
+flat_chess[dst>0.01*dst.max()] = [255,0,0]
+
+plt.imshow(flat_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f6ab41e7750>
+
+
+
+
+![png](output_7_1.png)
+
+
+
+```python
+gray = np.float32(gray_real_chess)
+dst = cv2.cornerHarris(src = gray, blockSize = 2, ksize = 3, k = 0.04)
+dst = cv2.dilate(dst, None)
+
+real_chess[dst>0.01*dst.max()] = [255,0,0]
+
+plt.imshow(real_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f6ab414bfd0>
+
+
+
+
+![png](output_8_1.png)
+
+
+
+```python
+#Shi-Tomasi Corner Detection
+
+corners = cv2.goodFeaturesToTrack(gray_flat_chess, 64, 0.01, 10)
+```
+
+
+```python
+corners = np.int0(corners)
+
+for i in corners:
+    x,y = i.ravel()
+    cv2.circle(flat_chess, (x,y), 3, (255,0,0), -1)
+    
+plt.imshow(flat_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f6ab40c8110>
+
+
+
+
+![png](output_10_1.png)
+
+
+
+```python
+corners = cv2.goodFeaturesToTrack(gray_real_chess, 100, 0.01, 10)
+
+corners = np.int0(corners)
+
+for i in corners:
+    x,y = i.ravel()
+    cv2.circle(real_chess, (x,y), 3, (0,255,0), -1)
+    
+plt.imshow(real_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f6ab402d4d0>
+
+
+
+
+![png](output_11_1.png)
+
+
+### Edge Detection
+
+
+```python
+import cv2
+```
+
+
+```python
+import numpy as np
+```
+
+
+```python
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+img = cv2.imread("Mushroom.jpg")
+plt.imshow(img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d775d650>
+
+
+
+
+![png](output_3_1.png)
+
+
+
+```python
+edges = cv2.Canny(image = img, threshold1 = 127, threshold2 = 127)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d76c25d0>
+
+
+
+
+![png](output_4_1.png)
+
+
+
+```python
+med_value = np.median(img)
+med_value
+```
+
+
+
+
+    61.0
+
+
+
+
+```python
+lower = int(max(0, 0.7*med_value))
+upper = int(min(255,1.3*med_value))
+
+edges = cv2.Canny(img, threshold1 = lower, threshold2 = upper)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d76ab910>
+
+
+
+
+![png](output_6_1.png)
+
+
+
+```python
+edges = cv2.Canny(image = img, threshold1 = lower, threshold2 = upper +100)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d761d210>
+
+
+
+
+![png](output_7_1.png)
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (5,5))
+
+edges = cv2.Canny(image=blurred_img,
+                 threshold1 = lower,
+                 threshold2 = upper)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d758c1d0>
+
+
+
+
+![png](output_8_1.png)
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (7,7))
+
+edges = cv2.Canny(image=blurred_img,
+                 threshold1 = lower,
+                 threshold2 = upper)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d7571f10>
+
+
+
+
+![png](output_9_1.png)
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (5,5))
+
+edges = cv2.Canny(image=blurred_img,
+                 threshold1 = lower,
+                 threshold2 = upper + 50)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d74e0d10>
+
+
+
+
+![png](output_10_1.png)
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (5,5))
+
+edges = cv2.Canny(image=blurred_img,
+                 threshold1 = lower,
+                 threshold2 = upper + 100)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d744fa90>
+
+
+
+
+![png](output_11_1.png)
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (7,7))
+
+edges = cv2.Canny(image=blurred_img,
+                 threshold1 = lower,
+                 threshold2 = upper + 60)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d73bf810>
+
+
+
+
+![png](output_12_1.png)
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (8,8))
+
+edges = cv2.Canny(image=blurred_img,
+                 threshold1 = lower,
+                 threshold2 = upper)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f74d73ae490>
+
+
+
+
+![png](output_13_1.png)
+
+
+## Feature Detection
+
+
+### Feature Matches
+
+
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+def display(img,cmap='gray'):
+    fig = plt.figure(figsize=(12,10))
+    ax = fig.add_subplot(111)
+    ax.imshow(img,cmap='gray')
+```
+
+
+```python
+apple_jacks = cv2.imread("Apple_Jacks.jpeg", 0)
+display(apple_jacks)
+```
+
+
+![png](output_2_0.png)
+
+
+
+```python
+cereals = cv2.imread('All_Cereal.jpg', 0)
+display(cereals)
+```
+
+
+![png](output_3_0.png)
+
+
+
+```python
+orb = cv2.ORB_create()
+
+kp1,des1 = orb.detectAndCompute(apple_jacks, mask=None)
+kp2,des2 = orb.detectAndCompute(cereals, mask=None)
+```
+
+
+```python
+bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck = True)
+matches = bf.match(des1, des2)
+```
+
+
+```python
+matches = sorted(matches, key = lambda x:x.distance)
+```
+
+
+```python
+apple_jacks_matches = cv2.drawMatches(apple_jacks, kp1, cereals, kp2, matches[:25], None, flags = 2)
+```
+
+
+```python
+display(apple_jacks_matches)
+```
+
+
+![png](output_8_0.png)
+
+
+
+```python
+sift = cv2.SIFT_create()
+```
+
+
+```python
+kp1, des1, = sift.detectAndCompute(apple_jacks, None)
+kp2, des2 = sift.detectAndCompute(cereals, None)
+```
+
+
+```python
+bf = cv2.BFMatcher()
+matches = bf.knnMatch(des1, des2, k=2)
+```
+
+
+```python
+good = []
+
+for match1, match2, in matches:
+    if match1.distance < 0.75*match2.distance:
+        good.append([match1])
+```
+
+
+```python
+print('Length of total matches:', len(matches))
+print('Length of good matches:', len(good))
+```
+
+    Length of total matches: 4980
+    Length of good matches: 52
+
+
+
+```python
+sift_macthes = cv2.drawMatchesKnn(apple_jacks, kp1, cereals, kp2, good, None, flags =2)
+display(sift_macthes)
+```
+
+
+![png](output_14_0.png)
+
+
+
+```python
+sift = cv2.SIFT_create()
+
+kp1, des1, = sift.detectAndCompute(apple_jacks, None)
+kp2, des2, = sift.detectAndCompute(cereals, None)
+```
+
+
+```python
+flann_index_KDtree = 0
+index_params = dict(algorithm=flann_index_KDtree, trees = 5)
+search_params = dict(checks=50)
+```
+
+
+```python
+flann = cv2.FlannBasedMatcher(index_params, search_params)
+
+matches = flann.knnMatch(des1, des2, k=2)
+
+good = []
+
+for match1, match2, in matches:
+    if match1.distance < 0.75*match2.distance:
+        good.append([match1])
+```
+
+
+```python
+flann_matches = cv2.drawMatchesKnn(apple_jacks, kp1, cereals, kp2, good, None, flags = 0)
+display(flann_matches)
+```
+
+
+![png](output_18_0.png)
+
+
+
+```python
+sift = cv2.SIFT_create()
+
+kp1, des1, = sift.detectAndCompute(apple_jacks, None)
+kp2, des2, = sift.detectAndCompute(cereals, None)
+```
+
+
+```python
+flann_index_KDtree = 0
+indx_params = dict(algorithm= flann_index_KDtree, trees = 5)
+search_param = dict(checks = 50)
+```
+
+
+```python
+flann = cv2.FlannBasedMatcher(index_params, search_params)
+
+matches = flann.knnMatch(des1, des2, k = 2)
+```
+
+
+```python
+matchesMask = [[0,0]for i in range(len(matches))]
+```
+
+
+```python
+for i, (match1, match2) in enumerate(matches):
+    if match1.distance <0.75*match2.distance:
+        matchesMask[i] = [1,0]
+        
+draw_params = dict(matchColor = (0,255,0),
+                  singlePointColor = (255,0,0),
+                  matchesMask = matchesMask,
+                  flags = 0)
+```
+
+
+```python
+flann_matches = cv2.drawMatchesKnn(apple_jacks, kp1, cereals, kp2, matches, None, **draw_params)
+
+display(flann_matches)
+```
+
+
+![png](output_24_0.png)
+
+
+### Object Detection
+
+
+```python
+import cv2
+```
+
+
+```python
+import numpy as np
+```
+
+
+```python
+import matplotlib.pyplot as plt
+```
+
+
+```python
+%matplotlib inline
+```
+
+
+```python
+full = cv2.imread('Training_Sunflower.jpg')
+```
+
+
+```python
+full = cv2.cvtColor(full, cv2.COLOR_BGR2RGB)
+```
+
+
+```python
+plt.imshow(full)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fe78bb7d690>
+
+
+
+
+![png](output_6_1.png)
+
+
+
+```python
+test = cv2.imread('Sunflower_Testing.jpeg')
+```
+
+
+```python
+test = cv2.cvtColor(test, cv2.COLOR_BGR2RGB)
+```
+
+
+```python
+plt.imshow(test)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fe78bd175d0>
+
+
+
+
+![png](output_9_1.png)
+
+
+
+```python
+print('Test image shape:', full.shape)
+print('Training image shape:', test.shape)
+```
+
+    Test image shape: (1280, 1280, 3)
+    Training image shape: (800, 800, 3)
+
+
+
+```python
+methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR', 'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
+```
+
+
+```python
+for m in methods:
+    
+    test_copy = test.copy()
+    method = eval(m)
+    
+    res = cv2.matchTemplate(test_copy, full, method)
+    
+    min_val, max_val, min_loc, max_loc, = cv2.minMaxLoc(res)
+    
+    if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+        top_left = min_loc
+    else:
+        top_left = max_loc
+        
+    height, width, channels = full.shape
+    bottom_right = (top_left[0] + width, top_left[1] + height)
+    
+    cv2.rectangle(test_copy, top_left, bottom_right, (300,0,0),10)
+    
+    plt.subplot(121)
+    plt.imshow(res)
+    plt.title("Heatmap of template matching")
+    plt.subplot(122)
+    plt.imshow(test_copy)
+    plt.title('Detection of template')
+    
+    plt.suptitle(m)
+    
+    plt.show()
+    print('\n')
+    print('\n')
+```
+
+
+![png](output_12_0.png)
+
+
+    
+    
+    
+    
+
+
+
+![png](output_12_2.png)
+
+
+    
+    
+    
+    
+
+
+
+![png](output_12_4.png)
+
+
+    
+    
+    
+    
+
+
+
+![png](output_12_6.png)
+
+
+    
+    
+    
+    
+
+
+
+![png](output_12_8.png)
+
+
+    
+    
+    
+    
+
+
+
+![png](output_12_10.png)
+
+
+    
+    
+# END OF PORTFOLIO
